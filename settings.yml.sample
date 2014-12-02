@@ -1,0 +1,264 @@
+defaults:
+  cybozu: &cybozu
+    uid: 290
+    password: 'XXXXXXXX'
+    base_url: 'http://sv01.feedforce.jp/cybozu/'
+    user_agent: 'Mozilla/5.0 Sebastian@fftt-irc'
+
+  targets:
+    slack: &slack
+      bot_name: 'SlackBot'
+      webhook_url: 'https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX'
+      user_suffix: '様'
+      users:
+        'u198': 'sakuro'
+        'u212': 'sugi'
+        'u223': 'meihong'
+        'u229': 'gen'
+        #'u261': 'r-suzuki'
+        'u264': 'kano-e'
+        'u271': 'horihiro'
+        'u278': 'kobayashi'
+        'u295': 'miringo'
+        'u306': 'guri'
+        'u361': 'sunao'
+        'u370': 'marin'
+        'u377': 'mgi'
+        'u385': 'kunishima'
+        'u396': 'tmd45'
+        'u401': 'inoue'
+        'u410': 'masutaka'
+        'u412': 'hoshino'
+        'u415': 'tasukunakano'
+        'u417': 'yu'
+        'u466': 'nabeharu'
+
+    irc: &irc
+      bot_name: 'IrcBot'
+      host: 'irc.feedforce.jp'
+      port: 6667
+      password: 'XXXXXXXX'
+      channel: '#ff'
+      join: true
+      nick: 'Sebastian'
+      user_suffix: '様'
+      users:
+        'u198': sakuro
+        'u212': sugi
+        'u223': meihong
+        'u261': 'r-suzuki'
+        'u264': 'kano-e'
+        'u278': kobayashi
+        'u377': mgi
+        'u385': 'kunishima'
+        'u396': tmd45
+        'u401': inoue
+        'u410': masutaka
+        'u412': hoshino
+
+    hipchat_base: &hipchat_base
+      bot_name: 'HipChatBot'
+      api_token: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+      options: {}
+      username: 'Sebastian'
+      message_prefix: '(sebastian)'
+      message_prefix: ''
+      message_options:
+        message_format: 'text'
+      user_prefix: ' '
+      user_suffix: ' 様'
+
+    hipchat_ff: &hipchat_ff
+      <<: *hipchat_base
+      room_id: 560394       # feedforce room
+      users:
+        'u198': '@sakuro'
+        'u212': '@sugi'
+        'u223': '@meihong'
+        'u229': '@gen'
+        'u261': '@ryo'
+        'u264': '@kanoe'
+        'u271': '@horigami'
+        'u278': '@kobayashi'
+        'u295': '@miringo'
+        'u306': '@Guri'
+        'u361': '@sunao'
+        'u370': '@marin'
+        'u377': '@mgi'
+        'u385': '@kunishima'
+        'u396': '@tmd45'
+        'u401': '@inoue'
+        'u410': '@masutaka'
+        'u412': '@hoshino'
+        'u415': '@Task'
+        'u417': '@yu'
+        'u466': '@nabeharu'
+
+    hipchat_tech: &hipchat_tech
+      <<: *hipchat_base
+      room_id: 410518
+      users:
+        'u198': sakuro
+        'u212': sugi
+        'u223': meihong
+        'u261': ryo
+        'u264': kanoe
+        'u278': kobayashi
+        'u377': mgi
+        'u385': kunishima
+        'u396': tmd45
+        'u401': inoue
+        'u410': masutaka
+        'u412': hoshino
+        'u415': Task
+
+    hipchat_test:
+      <<: *hipchat_base
+      # kano-e sandbox
+      room_id: 493640
+      user_prefix: ' '
+      users:
+        'u264': kanoe
+
+    hipchat_creative: &hipchat_creative
+      <<: *hipchat_base
+      room_id: 493267
+      users:
+        'u229': gen
+        'u271': horigami
+        'u295': miringo
+        'u370': marin
+
+  messages:
+    scheduler_today:
+      header: "おはようございます。%1$d月%2$d日%3$s曜日でございます。"
+      footer: "本日もどうぞよろしくお願いいたします。"
+      schedule:
+        header: "本日のご予定をお知らせいたします。"
+        footer: "以上でございます。"
+        timetable: "%1$sより %2$s %3$s"
+        overday: "%1$s %2$s"
+        banner: "%1$s %2$s"
+      first_of_year:
+        header: "あけましておめでとうございます。新しい年を迎えることができまして、大変喜ばしく思います。%d年でございます。"
+        footer: "今年もまた一年、どうぞよろしくお願いいたします。"
+      last_of_year:
+        footer:
+        - "今年の出勤日も本日が最後となりました。"
+        - "わたくしの今年の業務も、この通知で終了でございます。"
+        - "一年間お疲れ様でございました。良いお年をお迎えください。"
+      tokyodome:
+        message: "東京ドームでは %1$s %2$s が開催されますので、お出かけの際はご注意ください。"
+        close_message: "東京ドームは本日 %1$s でございます。"
+      cityhall:
+        message: "東京ドームシティホールでは %1$s が開催されますので、お出かけの際はご注意ください。詳細は %2$s をご覧下さい。"
+    scheduler:
+      message: "%1$s %2$sより %3$s"
+      sebastian_message: "%2$s"
+      header:
+      - "まもなくご予定のお時間でございます。"
+      - "ご予定をお知らせにあがりました。"
+      - "まもなくのご予定がございます。"
+      sebastian_header:
+      - "皆様へのご連絡がございます。"
+      footer:
+      - "以上でございます。"
+      - "以上、ご確認ください。"
+    before_period:
+      header:
+      - "まもなく19時、業務終了のお時間でございます。"
+      - "まもなく業務終了のお時間でございます。"
+      - "業務終了のお時間がせまっております。"
+      footer: []
+      middle:
+      - probability: 100
+        messages:
+        - "お帰りの前に本日のお仕事を振り返るのはいかがでしょうか。\nhttps://feedforce.qiita.com/"
+      tokyodome:
+        message: "東京ドームでは %1$s %2$s 開催でございます。お帰りのお時間にはお気をつけ下さい。"
+        close_message: "東京ドームは本日 %1$s でございます。"
+      cityhall:
+        message: "東京ドームシティホールでは %1$s 開催でございます。お出かけの際はご注意ください。詳細は %2$s をご覧下さい。"
+    period:
+      header:
+      - "本日も19時をまわりまして、業務終了のお時間でございます。"
+      - "19時をお知らせにあがりました、業務終了のお時間でございます。"
+      - "皆様、本日の業務時間は終了でございます。"
+      footer: []
+      middle:
+      - probability: 100
+        messages:
+        - "どうぞお忘れ物などなさいませんよう。"
+        - "あまりご無理はなさらず、お体をお休めください。"
+        - "本日もお疲れさまでございました。"
+      friday:
+      - "どうぞ良い週末をお過ごしください。"
+      - "心穏やかな週末になるよう、お祈り申し上げます。"
+      power_failure:
+      - "次の出社までの間に停電の予定がございます。お帰りの際に電源の状態をご確認ください。"
+
+abyss:
+  cybozu:
+    <<: *cybozu
+
+  targets:
+    irc:
+      <<: *irc
+      #nick: 'Call-of-Abyss'
+      user_suffix: ''
+
+    hipchat_tech:
+      <<: *hipchat_tech
+      user_suffix: ''
+
+    hipchat_creative:
+      <<: *hipchat_creative
+      user_suffix: ''
+
+  messages:
+    scheduler_today:
+      header: "月が満ちる刻がきた……覚醒(めざめ)よ……"
+      footer: "深淵に微睡むモノ達よ……呼び声に応えよ"
+      schedule:
+        header: "我、刻を告げる"
+        footer: []
+        timetable: "%1$sより %2$s %3$s"
+        overday: "%1$s %2$s"
+        banner: "%1$s %2$s"
+      tokyodome:
+        message: "彼の円蓋(ドーム)にて %2$s が視える……"
+      cityhall:
+        message: "彼の円蓋(ドーム)にて %1$s が視える…… %2$s を視よ"
+    scheduler:
+      message: "%1$s %3$s の刻だ 覚醒(めざめ)よ"
+      sebastian_message: "%2$s が始まる"
+      header:
+      - "刻は来た……"
+      - "微睡むモノ達よ聴け！"
+      - "深淵より来たれ！"
+      sebastian_header:
+      - "今 深淵より告げる"
+      - "昏き闇よりの聲を聴け"
+      - "まもなく訪れる……"
+      footer:
+      - "我が聲に応えよ"
+    before_period:
+      header:
+      - "間もなく覚醒(めざめ)の刻は終わる……"
+      footer:
+      - "終末の刻は近い……備えよ"
+      middle:
+      - probability: 100
+        messages:
+        - "封印の鍵を求めよ 見失うな"
+      tokyodome:
+        message: "彼の円蓋(ドーム) %2$s の饗宴(うたげ)"
+      cityhall:
+        message: "彼の円蓋(ドーム)にて %1$s が視える…… %2$s を視よ"
+    period:
+      header:
+      - "終末の刻は来た"
+      footer:
+      - "再び覚醒(めざめ)る刻まで深淵に眠れ"
+      middle: []
+
