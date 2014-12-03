@@ -1,133 +1,8 @@
 defaults:
-  cybozu: &cybozu
-    uid: 290
-    password: 'XXXXXXXX'
-    base_url: 'http://sv01.feedforce.jp/cybozu/'
-    user_agent: 'Mozilla/5.0 Sebastian@fftt-irc'
-
   targets:
     slack: &slack
       bot_name: 'SlackBot'
       webhook_url: 'https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX'
-      user_suffix: '様'
-      users:
-        'u198': 'sakuro'
-        'u212': 'sugi'
-        'u223': 'meihong'
-        'u229': 'gen'
-        #'u261': 'r-suzuki'
-        'u264': 'kano-e'
-        'u271': 'horihiro'
-        'u278': 'kobayashi'
-        'u295': 'miringo'
-        'u306': 'guri'
-        'u361': 'sunao'
-        'u370': 'marin'
-        'u377': 'mgi'
-        'u385': 'kunishima'
-        'u396': 'tmd45'
-        'u401': 'inoue'
-        'u410': 'masutaka'
-        'u412': 'hoshino'
-        'u415': 'tasukunakano'
-        'u417': 'yu'
-        'u466': 'nabeharu'
-
-    irc: &irc
-      bot_name: 'IrcBot'
-      host: 'irc.feedforce.jp'
-      port: 6667
-      password: 'XXXXXXXX'
-      channel: '#ff'
-      join: true
-      nick: 'Sebastian'
-      user_suffix: '様'
-      users:
-        'u198': sakuro
-        'u212': sugi
-        'u223': meihong
-        'u261': 'r-suzuki'
-        'u264': 'kano-e'
-        'u278': kobayashi
-        'u377': mgi
-        'u385': 'kunishima'
-        'u396': tmd45
-        'u401': inoue
-        'u410': masutaka
-        'u412': hoshino
-
-    hipchat_base: &hipchat_base
-      bot_name: 'HipChatBot'
-      api_token: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-      options: {}
-      username: 'Sebastian'
-      message_prefix: '(sebastian)'
-      message_prefix: ''
-      message_options:
-        message_format: 'text'
-      user_prefix: ' '
-      user_suffix: ' 様'
-
-    hipchat_ff: &hipchat_ff
-      <<: *hipchat_base
-      room_id: 560394       # feedforce room
-      users:
-        'u198': '@sakuro'
-        'u212': '@sugi'
-        'u223': '@meihong'
-        'u229': '@gen'
-        'u261': '@ryo'
-        'u264': '@kanoe'
-        'u271': '@horigami'
-        'u278': '@kobayashi'
-        'u295': '@miringo'
-        'u306': '@Guri'
-        'u361': '@sunao'
-        'u370': '@marin'
-        'u377': '@mgi'
-        'u385': '@kunishima'
-        'u396': '@tmd45'
-        'u401': '@inoue'
-        'u410': '@masutaka'
-        'u412': '@hoshino'
-        'u415': '@Task'
-        'u417': '@yu'
-        'u466': '@nabeharu'
-
-    hipchat_tech: &hipchat_tech
-      <<: *hipchat_base
-      room_id: 410518
-      users:
-        'u198': sakuro
-        'u212': sugi
-        'u223': meihong
-        'u261': ryo
-        'u264': kanoe
-        'u278': kobayashi
-        'u377': mgi
-        'u385': kunishima
-        'u396': tmd45
-        'u401': inoue
-        'u410': masutaka
-        'u412': hoshino
-        'u415': Task
-
-    hipchat_test:
-      <<: *hipchat_base
-      # kano-e sandbox
-      room_id: 493640
-      user_prefix: ' '
-      users:
-        'u264': kanoe
-
-    hipchat_creative: &hipchat_creative
-      <<: *hipchat_base
-      room_id: 493267
-      users:
-        'u229': gen
-        'u271': horigami
-        'u295': miringo
-        'u370': marin
 
   messages:
     scheduler_today:
@@ -198,22 +73,9 @@ defaults:
       - "次の出社までの間に停電の予定がございます。お帰りの際に電源の状態をご確認ください。"
 
 abyss:
-  cybozu:
-    <<: *cybozu
-
   targets:
-    irc:
-      <<: *irc
-      #nick: 'Call-of-Abyss'
-      user_suffix: ''
-
-    hipchat_tech:
-      <<: *hipchat_tech
-      user_suffix: ''
-
-    hipchat_creative:
-      <<: *hipchat_creative
-      user_suffix: ''
+    slack:
+      <<: *slack
 
   messages:
     scheduler_today:
