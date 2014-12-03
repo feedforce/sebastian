@@ -23,7 +23,6 @@ now = Time.now
 
 scheduler = Cybozu6::Scheduler.new(Settings.cybozu.symbolize_keys, users, now)
 # Cybozu 終了だが、休日判定のためにSchedulerだけイニシャライズ
-# scheduler.open
 
 # 祝日と思われるなら実行しない
 exit if scheduler.holiday?
@@ -37,33 +36,6 @@ end
 
 first_message ||= seeds.header % [ now.month, now.day, wdays[now.wday] ]
 messages << first_message
-
-# Cybozu 終了
-# if schedule_list.size + sebastian_list.size > 0 && !scheduler.last_of_year?
-#   messages << seeds.schedule.header
-# 
-#   sebastian_list.each do |s|
-#     if s.overday?
-#       messages << seeds.schedule.overday % [ s.title, '' ]
-#     elsif s.banner?
-#       messages << seeds.schedule.banner % [ s.title, '' ]
-#     else
-#       messages << seeds.schedule.timetable % [ s.start_time_to_s, s.title, '' ]
-#     end
-#   end
-# 
-#   schedule_list.each do |s|
-#     if s.overday?
-#       messages << seeds.schedule.overday % [ s.title, s.user_names.map{|n| "#{target_settings[:user_prefix]}#{n}#{target_settings[:user_suffix]}" }.join("、") ]
-#     elsif s.banner?
-#       messages << seeds.schedule.banner % [ s.title, s.user_names.map{|n| "#{target_settings[:user_prefix]}#{n}#{target_settings[:user_suffix]}" }.join("、") ]
-#     else
-#       messages << seeds.schedule.timetable % [ s.start_time_to_s, s.title, s.user_names.map{|n| "#{target_settings[:user_prefix]}#{n}#{target_settings[:user_suffix]}" }.join("、") ]
-#     end
-#   end
-# 
-#   messages << seeds.schedule.footer
-# end
 
 tokyodome = TokyoDomeSchedule.today(now)
 if tokyodome
