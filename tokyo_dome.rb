@@ -7,40 +7,34 @@ require 'nokogiri'
 module CityHallSchedule
   def self.today(now = nil)
     now ||= Time.now
-    uri = URI.parse("http://www.meetsport.jp/hall/event.htm")
+    uri = URI.parse("http://www.tokyo-dome.co.jp/tdc-hall/event/")
     response = Net::HTTP.start(uri.host, uri.port) do |http|
       http.get(uri.path)
     end
 
     doc = Nokogiri::HTML.parse(response.body.force_encoding('UTF-8'))
 
-    # <div id="calendar">
+    # <div class="calendar">
     #   <table>
     #     <tr>
     #       <td>
-    #         <table>
-    #           <tr>
-    #             <td><img alt="(day)" /></td>
-    #             <td><a href="#MonthDay">title</a></td><!-- ここが欲しい -->
-    #         </table>
+    #         <span>day</span>
+    #         <a href="#MonthDay">Title</a>
     #       </td>
     #     </tr>
     #   </table>
     # </div>
-    calendar = doc.xpath('//div[@id="calendar"]').first
+    calendar = doc.xpath('//div[contains(@class, "calendar")]').first
     return nil if calendar.nil?
 
-    target_day = calendar.xpath(".//img[@alt='#{now.day}']").first
+    target_day = calendar.xpath(".//span[text()=#{now.day}]/parent::*").first
     if target_day.nil?
-      alt = '%02d' % now.day
-      target_day = calendar.xpath(".//img[@alt='#{alt}']").first
+      day = '%02d' % now.day
+      target_day = calendar.xpath(".//span[text()=#{day}]/parent::*").first
     end
     return nil if target_day.nil?
 
-    target_td = target_day.parent.parent.parent
-    return nil if target_td.nil?
-
-    elem = target_td.xpath(".//a").first
+    elem = target_day.xpath(".//a").first
     return nil if elem.nil?
 
     fragment = elem.attribute('href').text.strip
